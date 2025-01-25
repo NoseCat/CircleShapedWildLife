@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\PhysicsObject">
+      <UniqueIdentifier>{b4abde80-b138-4042-bb6f-47b4d5cc13d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GameObject">
+      <UniqueIdentifier>{8fb30ada-e49f-4e14-a7e9-8cd7aa6d5b55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Base">
+      <UniqueIdentifier>{a26949b0-c6cf-402e-9108-27d025ccace0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\PhysicsObject\BodyPart">
+      <UniqueIdentifier>{9dba23d9-a538-47a4-8e75-51e50ee9d758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\PhysicsObject\Bodies">
+      <UniqueIdentifier>{144acc63-33b2-449e-8acc-d07a61160421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\PhysicsObject\Item">
+      <UniqueIdentifier>{c3e3579f-7b72-4f79-bd24-0c0db243b1d0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager.cpp">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MSG.cpp">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorMath.cpp">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BodyPart.cpp">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClCompile>
+    <ClCompile Include="Leg.cpp">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClCompile>
+    <ClCompile Include="Limb.cpp">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClCompile>
+    <ClCompile Include="Eye.cpp">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClCompile>
+    <ClCompile Include="Arm.cpp">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClCompile>
+    <ClCompile Include="Blob.cpp">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Body.cpp">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="Lizard.cpp">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="Snake.cpp">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="Food.cpp">
+      <Filter>Исходные файлы\PhysicsObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Исходные файлы\PhysicsObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BodySegment.cpp">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsObject.cpp">
+      <Filter>Исходные файлы\PhysicsObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Manager.h">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MSG.h">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorMath.h">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BodyPart.h">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClInclude>
+    <ClInclude Include="Leg.h">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClInclude>
+    <ClInclude Include="Limb.h">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClInclude>
+    <ClInclude Include="Eye.h">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClInclude>
+    <ClInclude Include="Arm.h">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClInclude>
+    <ClInclude Include="Blob.h">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="Lizard.h">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="Spider.h">
+      <Filter>Исходные файлы\PhysicsObject\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>Исходные файлы\PhysicsObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Исходные файлы\PhysicsObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BodySegment.h">
+      <Filter>Исходные файлы\PhysicsObject\BodyPart</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsObject.h">
+      <Filter>Исходные файлы\PhysicsObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
