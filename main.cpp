@@ -22,37 +22,10 @@ int main()
 	sf::Clock clock;
 	clock.restart();
 
+	const int targetFPS = 60;
+	const float frameTime = 1.0f / targetFPS;
+
 	//test
-	//Body c = Body();
-	//c.add(20);
-	///*Eye* e = new Eye({10,-10});
-	//c.segments[0]->addPart(e);
-	//Eye* e2 = new Eye({-13,-5});
-	//c.segments[0]->addPart(e2);
-	//c.add(10);
-	//c.add(10);
-	//Leg* l = new Leg({ 10,0 }, {30, 100});
-	//c.segments[2]->addPart(l);
-	//Arm* l2 = new Arm({ -10,0 });
-	//l2->invKnee();
-	//c.segments[2]->addPart(l2);
-	//c.add(10);
-	//c.add(10);
-
-	//std::vector<sf::CircleShape> circleShapes;
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	sf::CircleShape circle(10);
-	//	circle.setOrigin(circle.getRadius(), circle.getRadius());
-	//	circle.setFillColor(sf::Color::Magenta);
-	//	circle.setPosition((float)(rand() % 100), (float)(rand() % 100));
-	//	circleShapes.push_back(circle);
-	//}
-	//Blob* b = new Blob({1,0}, circleShapes);
-	//c.segments[4]->addPart(b);
-	//c.add(10);*/
-
-	//Lizard* s = ;
 	Creature* c = new Creature(new Lizard());
 
 
@@ -69,7 +42,11 @@ int main()
 #pragma endregion //EVENT
 
 		//update
-		MGR->Update(clock.restart().asSeconds());
+		float deltaTime = clock.restart().asSeconds();
+		MGR->Update(deltaTime);
+		float waitTime = frameTime - deltaTime;
+		if (waitTime > 0) 
+			sf::sleep(sf::seconds(waitTime));
 
 		//test
 		c->setTarget((sf::Vector2f)sf::Mouse::getPosition(window));
