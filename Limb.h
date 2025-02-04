@@ -28,7 +28,7 @@ public:
 
 	void step(sf::Vector2f target);
 
-	void Draw(sf::RenderWindow& win);
+	void Draw(sf::RenderWindow& win, Camera& cam);
 
 	void Update(float dt);
 

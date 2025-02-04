@@ -93,6 +93,15 @@
     <ClCompile Include="PhysicsObject.cpp">
       <Filter>Исходные файлы\PhysicsObject</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager.h">
@@ -151,6 +160,15 @@
     </ClInclude>
     <ClInclude Include="PhysicsObject.h">
       <Filter>Исходные файлы\PhysicsObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Исходные файлы\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

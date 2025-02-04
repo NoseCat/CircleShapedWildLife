@@ -53,9 +53,11 @@ void BodySegment::addPart(BodyPart *p)
     bodyParts.push_back(p);
 }
 
-void BodySegment::Draw(sf::RenderWindow& window)
+void BodySegment::Draw(sf::RenderWindow& window, Camera& cam)
 {
-    window.draw(circle);
+    sf::CircleShape c = circle;
+    c.move(-cam.offset);
+    window.draw(c);
 }
 
 void BodySegment::Update(float dt)

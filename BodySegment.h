@@ -18,7 +18,7 @@ public:
 
     void Update(float dt);
     void SendMsg(MSG* m);
-    void Draw(sf::RenderWindow& win);
+    void Draw(sf::RenderWindow& win, Camera& cam);
 
     sf::CircleShape getCircle();
     void setColor(sf::Color c);

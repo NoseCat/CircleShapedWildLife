@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Camera.h"
 
 struct MSG;
 
@@ -28,6 +29,6 @@ public:
 
 	virtual void Update(float dt) = 0;
 	virtual void SendMsg(MSG* m) = 0;
-	virtual void Draw(sf::RenderWindow& win);
+	virtual void Draw(sf::RenderWindow& win, Camera& cam);
 };
 

@@ -19,7 +19,7 @@ public:
 		eyeSize = radius;
 	}
 
-	void Draw(sf::RenderWindow& win);
+	void Draw(sf::RenderWindow& win, Camera& cam);
 
 	void Update(float dt)
 	{

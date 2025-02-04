@@ -25,15 +25,19 @@ public:
             circleShapes[i].setPosition(circle.getPosition() + transOffset + (dist * circleShapesOffsets[i].x + perp * circleShapesOffsets[i].y));
         }
     }
-    void Draw(sf::RenderWindow& win)
+    void Draw(sf::RenderWindow& win, Camera& cam)
     {
         sf::ConvexShape poly;
         for (int i = 0; i < circleShapes.size(); i++)
         {
-            win.draw(circleShapes[i]);
+            sf::CircleShape c = circleShapes[i];
+            c.move(-cam.offset);
+            win.draw(c);
+            //win.draw(circleShapes[i]);
             for (int j = i + 1; j < circleShapes.size(); j++)
             {
                 poly = polyTwoCircles(circleShapes[i], circleShapes[j]);
+                poly.move(-cam.offset);
                 win.draw(poly);
             }
         }

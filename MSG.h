@@ -2,7 +2,7 @@
 #include "PhysicsObject.h"
 #include "GameObject.h"
 
-enum class MsgType {Create, CreateGO, Kill, Move, etc};
+enum class MsgType {Create, CreateGO, Kill, PlayerMoved, PlayerCollide};
 
 struct MSG
 {
@@ -32,7 +32,14 @@ public:
 		{
 			sf::Vector2f oldPos;
 			sf::Vector2f newPos;
-		} move;
+		} playerMoved;
+
+		struct
+		{
+			PhysicsObject* Collider;
+			PhysicsObject* Collision;
+			sf::Vector2f pos;
+		} playerCollide;
 		
 		// Конструктор по умолчанию
 	};

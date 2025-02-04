@@ -45,23 +45,31 @@ void Limb::step(sf::Vector2f target)
 	}
 }
 
-void Limb::Draw(sf::RenderWindow& win)
+void Limb::Draw(sf::RenderWindow& win, Camera& cam)
 {
 	sf::ConvexShape poly = polyTwoCircles(knee, feet);
+	poly.move(-cam.offset);
 	win.draw(poly);
 
 	sf::CircleShape base(hipWidth);
 	base.setOrigin(base.getRadius(), base.getRadius());
 	base.setPosition(circle.getPosition() + transOffset);
 	poly = polyTwoCircles(knee, base);
+	poly.move(-cam.offset);
 	win.draw(poly);
 
 	//feet.setFillColor(sf::Color::Red);
 	//knee.setFillColor(sf::Color::Red);
 	base.setFillColor(circle.getFillColor());
-	win.draw(feet);
-	win.draw(knee);
-	win.draw(base);
+	sf::CircleShape c = feet;
+	c.move(-cam.offset);
+	win.draw(c);
+	c = knee;
+	c.move(-cam.offset);
+	win.draw(c);
+	c = base;
+	c.move(-cam.offset);
+	win.draw(c);
 }
 
 void Limb::Update(float dt)

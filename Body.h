@@ -29,6 +29,6 @@ public:
 
 	void Update(float dt);
 	void SendMsg(MSG* m);
-	void Draw(sf::RenderWindow& window);
+	void Draw(sf::RenderWindow& window, Camera& cam);
 };
 

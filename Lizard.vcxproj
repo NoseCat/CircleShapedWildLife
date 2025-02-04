@@ -138,7 +138,9 @@
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodySegment.cpp" />
     <ClCompile Include="Body.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Eye.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -150,6 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="MSG.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="VectorMath.cpp" />
@@ -160,7 +163,9 @@
     <ClInclude Include="BodyPart.h" />
     <ClInclude Include="BodySegment.h" />
     <ClInclude Include="Body.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Creature.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Eye.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="GameObject.h" />
@@ -171,6 +176,7 @@
     <ClInclude Include="Lizard.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="MSG.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="VectorMath.h" />

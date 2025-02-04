@@ -13,6 +13,8 @@
 #include "Lizard.h"
 #include "Creature.h"
 
+#include "Camera.h"
+
 int main()
 {
 	//preprogramm
@@ -22,12 +24,14 @@ int main()
 	sf::Clock clock;
 	clock.restart();
 
+	Camera cam = Camera();
+	cam.offset = { 10, 10};
+
 	const int targetFPS = 60;
 	const float frameTime = 1.0f / targetFPS;
 
 	//test
-	Creature* c = new Creature(new Lizard());
-
+	Creature* c = new Creature(new Snake());
 
 	//Main loop
 	while (window.isOpen())
@@ -53,7 +57,7 @@ int main()
 
 		//draw
 		window.clear(sf::Color::Black);
-		MGR->DrawObjects(window);
+		MGR->DrawObjects(window, cam);
 		window.display();
 	}
 

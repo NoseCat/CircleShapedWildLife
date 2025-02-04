@@ -73,12 +73,13 @@ void Body::SendMsg(MSG* m)
 	;
 }
 
-void Body::Draw(sf::RenderWindow& window)
+void Body::Draw(sf::RenderWindow& window, Camera& cam)
 {
 	sf::ConvexShape poly;
 	for (int i = segments.size() - 1; i > 0; i--)
 	{
 		poly = polyTwoCircles(segments[i]->getCircle(), segments[i - 1]->getCircle());
+		poly.move(-cam.offset);
 		window.draw(poly);
 	}
 }

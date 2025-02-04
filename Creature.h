@@ -8,11 +8,13 @@ protected:
 
 	sf::Vector2f target;
 	float speed;
+	//int health;
+	//int attack;
 
 public:
 	Creature(Body* body) : GameObject(), body(body)
 	{
-		speed = 0.1;
+		speed = 10;
 		target = { 0,0 };
 	}
 
@@ -25,6 +27,11 @@ public:
 	{
 		target = vec;
 	}
+
+	//virtual void Eat(Item* i)
+	//{
+	//	;
+	//}
 
 	virtual void Update(float dt)
 	{

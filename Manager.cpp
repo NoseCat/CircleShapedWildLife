@@ -64,10 +64,6 @@ void Manager::Update(float dt)
 			delete* res;
 			objs.erase(res);
 		} break;
-		case MsgType::Move:
-		{
-			//???
-		} break;
 		default:
 			break;
 		}
@@ -92,11 +88,11 @@ void Manager::SendMsg(MSG* m)
 	msgs.push_back(m);
 }
 
-void Manager::DrawObjects(sf::RenderWindow& win)
+void Manager::DrawObjects(sf::RenderWindow& win, Camera& cam)
 {
 	for (auto obj : objs)
 	{
-		obj->Draw(win);
+		obj->Draw(win, cam);
 	}
 }
 

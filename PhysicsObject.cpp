@@ -15,8 +15,9 @@ int PhysicsObject::GetLastID()
 
 PhysicsObject::PhysicsObject()
 {
-	circle.setRadius(0);
+	circle.setRadius(100);
 	circle.setPosition({0,0});
+	circle.setOrigin({circle.getRadius(), circle.getRadius() });
 	circle.setFillColor(sf::Color::Red);
 
 	MSG* msg = new MSG;
@@ -59,7 +60,9 @@ PhysicsObject::PhysicsObject(const PhysicsObject&)
 
 }
 
-void PhysicsObject::Draw(sf::RenderWindow& win)
+void PhysicsObject::Draw(sf::RenderWindow& win, Camera& cam)
 {
-	win.draw(circle);
+	sf::CircleShape c = circle;
+	c.setPosition(c.getPosition() - cam.offset);
+	win.draw(c);
 }
