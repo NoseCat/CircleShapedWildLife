@@ -11,6 +11,11 @@ BodySegment::BodySegment(float radius) : PhysicsObject({ 0,0 }, radius)
     circle.setFillColor(sf::Color::Green);
 }
 
+void BodySegment::setPosition(sf::Vector2f pos)
+{
+    circle.setPosition(pos);
+}
+
 void BodySegment::adjust(const BodySegment& to)
 {
     sf::Vector2f distance = to.circle.getPosition() - circle.getPosition();
@@ -36,7 +41,6 @@ void BodySegment::fixPartOffset(const BodySegment& to)
     float disLen = length(distance);
     if (disLen == 0)
         return;
-    
 
     sf::Vector2f perp = { distance.y, -distance.x };
     perp = normalize(perp);

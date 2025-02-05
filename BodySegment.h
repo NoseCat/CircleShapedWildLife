@@ -16,6 +16,7 @@ public:
     BodySegment();
     BodySegment(float radius);
 
+
     void Update(float dt);
     void SendMsg(MSG* m);
     void Draw(sf::RenderWindow& win, Camera& cam);
@@ -26,5 +27,6 @@ public:
     void virtual adjust(const BodySegment& to);
     void addPart(BodyPart* p);
     void fixPartOffset(const BodySegment& to);
+    void setPosition(sf::Vector2f pos);
 };
 

@@ -2,9 +2,22 @@
 #include "Creature.h"
 #include "Manager.h"
 #include "MSG.h"
+//#include "Camera.h"
 
 class Player : public Creature
 {
+public:
+
+	sf::Vector2f getPosition()
+	{
+		return body->getPosition();
+	}
+
+	Player(Body* b) : Creature(b)
+	{
+		;
+	}
+
 	virtual void Update(float dt)
 	{
 		sf::Vector2f input(0, 0);
@@ -22,6 +35,9 @@ class Player : public Creature
 		}
 		input = normalize(input);
 		Move(input * speed);
+
+		Camera* cam = Camera::getInstance();
+		cam->offset = getPosition() - sf::Vector2f(SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f);
 
 		Manager* MGR = Manager::GetInstance();
 		MSG* msg = new MSG();
