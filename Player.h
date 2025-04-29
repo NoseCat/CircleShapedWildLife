@@ -1,4 +1,5 @@
 #pragma once
+#include "iostream"
 #include "Creature.h"
 #include "Manager.h"
 #include "MSG.h"
@@ -6,6 +7,12 @@
 
 class Player : public Creature
 {
+private:
+	int health;
+	int score;
+	sf::Font font;
+	sf::Text healthText;
+	sf::Text scoreText;
 public:
 
 	sf::Vector2f getPosition()
@@ -15,7 +22,26 @@ public:
 
 	Player(Body* b) : Creature(b)
 	{
-		;
+		health = 100;
+		score = 0;
+
+		if (!font.loadFromFile("minecraft.ttf")) 
+		{
+			std::cout << "Font is not Loaded!!!!";
+			return;
+		}
+		healthText.setFont(font);
+		healthText.setString("Health: " + std::to_string(health));
+		healthText.setCharacterSize(24);
+		healthText.setFillColor(sf::Color::Red);
+		healthText.setPosition(10, 10);
+
+		scoreText.setFont(font);
+		scoreText.setString("Score: " + std::to_string(score));
+		scoreText.setCharacterSize(24);
+		scoreText.setFillColor(sf::Color::Yellow);
+		scoreText.setPosition(10, 40); 
+
 	}
 
 	virtual void Update(float dt)
@@ -45,6 +71,15 @@ public:
 		msg->playerMoved.newPos = body->getPosition();
 		MGR->SendMsg(msg);
 	}
+
+	void Draw(sf::RenderWindow& window)
+	{
+		healthText.setString("Health: " + std::to_string(health));
+		window.draw(healthText);
+		scoreText.setString("Score: " + std::to_string(score));
+		window.draw(scoreText);
+	}
+
 	virtual void SendMsg(MSG* m)
 	{
 

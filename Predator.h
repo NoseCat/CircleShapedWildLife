@@ -38,6 +38,10 @@ public:
 		Move(normalize(dir) * speed);
 	}
 
+	void Draw(sf::RenderWindow& window)
+	{
+	}
+
 	virtual void SendMsg(MSG* m)
 	{
 		switch (m->type)

@@ -99,6 +99,10 @@ void Manager::DrawObjects(sf::RenderWindow& win, Camera& cam)
 	{
 		obj->Draw(win, cam);
 	}
+	for (auto Gobj : Gobjs)
+	{
+		Gobj->Draw(win);
+	}
 }
 
 

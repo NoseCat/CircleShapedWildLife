@@ -30,6 +30,10 @@ public:
 		p = player;
 	}
 
+	void Draw(sf::RenderWindow& window)
+	{
+	}
+
 	void SendMsg(MSG* m)
 	{
 		switch (m->type)

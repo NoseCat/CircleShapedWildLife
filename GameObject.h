@@ -25,5 +25,6 @@ public:
 
 	virtual void Update(float dt) = 0;
 	virtual void SendMsg(MSG* m) = 0;
+	virtual void Draw(sf::RenderWindow& window) = 0;
 };
 
