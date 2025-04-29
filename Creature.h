@@ -14,8 +14,12 @@ protected:
 public:
 	Creature(Body* body) : GameObject(), body(body)
 	{
-		//body->move({1,1});
 		speed = 2;
+		target = { 0,0 };
+	}
+
+	Creature(Body* body, float s) : GameObject(), body(body), speed(s)
+	{
 		target = { 0,0 };
 	}
 

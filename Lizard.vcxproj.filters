@@ -102,6 +102,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Исходные файлы\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Predator.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnManager.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager.h">
@@ -169,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Исходные файлы\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Predator.h">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnManager.h">
+      <Filter>Исходные файлы\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

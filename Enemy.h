@@ -9,38 +9,19 @@ class Enemy : public Creature
 public:
 	float visibilityDistance;
 	sf::Vector2f playerPos;
+	float touch;
 
-	Enemy(Body* body) : Creature(body), visibilityDistance(200), playerPos({0,0})
+	Enemy(Body* body, sf::Vector2f pos, float vd, float s, float touch) : Creature(body, s), 
+		visibilityDistance(vd), playerPos(pos), touch(touch)
 	{
-		speed = 0.5;
+		Move(pos);
 	}
 
 	virtual void Update(float dt)
 	{
-		//speed is aproximately low distance for this creature (one step away)
-		if (length(target - body->getPosition()) <= speed)
-		{
-			target = sf::Vector2f({ (float)(rand() % 800), (float)(rand() % 400) });
-		}
-
-		if (length(playerPos - body->getPosition()) <= visibilityDistance)
-		{
-			target = playerPos;
-		}
-
-		if (length(playerPos - body->getPosition()) <= speed )
-		{
-			Manager* MGR = Manager::GetInstance();
-			MSG* msg = new MSG();
-			msg->type = MsgType::PlayerCollide;
-			msg->playerCollide.pos = body->getPosition();
-			msg->playerCollide.Collider = (PhysicsObject*)this; //??
-			MGR->SendMsg(msg);
-		}
-
-		sf::Vector2f dir = target - body->getPosition();
-		Move(normalize(dir) * speed);
+		;
 	}
+
 	virtual void SendMsg(MSG* m)
 	{
 		switch (m->type)
@@ -49,11 +30,16 @@ public:
 			playerPos = m->playerMoved.newPos;
 			break;
 		case MsgType::PlayerCollide:
+			Collide();
 			break;
 		default:
 			break;
 		}
 	}
 
+	virtual void Collide()
+	{
+		;
+	}
 };
 

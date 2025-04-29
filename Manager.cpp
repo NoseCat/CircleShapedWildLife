@@ -37,13 +37,13 @@ void Manager::Destroy()
 void Manager::Update(float dt)
 {
 	for (auto obj : Gobjs)
-		obj->Update(dt);	
-	
+		obj->Update(dt);
+
 	for (auto obj : objs)
 		obj->Update(dt);
 
 	MSG* m;
-	while(!msgs.empty())
+	while (!msgs.empty())
 	{
 		m = msgs.front();
 		msgs.pop_front();
@@ -64,6 +64,11 @@ void Manager::Update(float dt)
 			delete* res;
 			objs.erase(res);
 		} break;
+
+		case MsgType::KillPlayer:
+		{
+
+		}break;
 		default:
 			break;
 		}

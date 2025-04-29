@@ -16,7 +16,7 @@ int GameObject::GetLastID()
 GameObject::GameObject()
 {
 	MSG* msg = new MSG;
-	msg->type = MsgType::Create;
+	msg->type = MsgType::CreateGO;
 	msg->createGO.newObj = this;
 	Manager* MGR = Manager::GetInstance();
 	MGR->SendMsg(msg);

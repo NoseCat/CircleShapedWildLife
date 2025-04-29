@@ -14,8 +14,10 @@
 #include "Creature.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Predator.h"
 
 #include "Camera.h"
+#include "SpawnManager.h"
 
 int main()
 {
@@ -27,11 +29,15 @@ int main()
 	clock.restart();
 
 	Camera* cam = Camera::getInstance();
-	//cam->offset = { -100, -100};
 
+	SpawnManager* spawnManager = new SpawnManager();
 	Player* p = new Player(new Spider());
-
-	Enemy* e = new Enemy(new Snake());
+	spawnManager->assignPlayer(p);
+	
+	//test
+	//Enemy* e = new Enemy(new Snake(), {150,150}, 200, 1);
+	//Enemy* e1 = new Enemy(new Lizard(), {0,0}, 200, 1);
+	Predator* e = new Predator({50,50});
 
 	const int targetFPS = 60;
 	const float frameTime = 1.0f / targetFPS;
