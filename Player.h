@@ -3,6 +3,7 @@
 #include "Creature.h"
 #include "Manager.h"
 #include "MSG.h"
+//#include "Predator.h"
 //#include "Camera.h"
 
 class Player : public Creature
@@ -13,6 +14,12 @@ private:
 	sf::Font font;
 	sf::Text healthText;
 	sf::Text scoreText;
+
+	bool invincible = false;
+	float invincibilityTimer = 0.0f;
+	float invincibilityTime = 2.0f;
+	sf::CircleShape* invincibilityCircle;
+
 public:
 
 	sf::Vector2f getPosition()
@@ -24,6 +31,14 @@ public:
 	{
 		health = 100;
 		score = 0;
+
+		invincible = false;
+		invincibilityTimer = 0.0f;
+		invincibilityTime = 2.0f;
+
+		invincibilityCircle = new sf::CircleShape(150.0f);
+		invincibilityCircle->setFillColor(sf::Color(0, 0, 255, 64));
+		invincibilityCircle->setOrigin(invincibilityCircle->getRadius(), invincibilityCircle->getRadius());
 
 		if (!font.loadFromFile("minecraft.ttf")) 
 		{
@@ -41,11 +56,13 @@ public:
 		scoreText.setCharacterSize(24);
 		scoreText.setFillColor(sf::Color::Yellow);
 		scoreText.setPosition(10, 40); 
-
 	}
 
 	virtual void Update(float dt)
 	{
+		invincibilityTimer += dt;
+		invincible = !(invincibilityTimer > invincibilityTime);
+
 		sf::Vector2f input(0, 0);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 			input.y -= 1;
@@ -74,15 +91,34 @@ public:
 
 	void Draw(sf::RenderWindow& window)
 	{
+		invincibilityCircle->setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+		if (invincible)
+			window.draw(*(invincibilityCircle));
+
 		healthText.setString("Health: " + std::to_string(health));
 		window.draw(healthText);
 		scoreText.setString("Score: " + std::to_string(score));
 		window.draw(scoreText);
 	}
 
+	void MakeTemporaryInvincible()
+	{
+		invincible = true;
+		invincibilityTimer = 0;
+	}
+
 	virtual void SendMsg(MSG* m)
 	{
-
+		//on hit : invincibilityTimer = 0
+		switch (m->type)
+		{
+		case MsgType::PlayerDamaged:
+			if (!invincible)
+			{
+				MakeTemporaryInvincible();
+				health -= 20;
+			}
+		}
 	}
 };
 

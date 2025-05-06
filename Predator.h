@@ -1,7 +1,9 @@
 #pragma once
 #include "Enemy.h"
 #include "Lizard.h"
-#include "SpawnManager.h"
+//#include "SpawnManager.h"
+const int MAP_WIDTH = 1000; //relocate these to better place
+const int MAP_HEIGTH = 1000;
 
 class Predator : public Enemy
 {
@@ -59,12 +61,12 @@ public:
 
 	virtual void Collide()
 	{
-	//	printf("123");
-		//Manager* MGR = Manager::GetInstance();
-		//MSG* msg = new MSG();
-		//msg->type = MsgType::Kill;
+		Manager* MGR = Manager::GetInstance();
+		MSG* msg = new MSG();
+		msg->type = MsgType::PlayerDamaged;
+		msg->playerDamaged.damager = this;
 		
-		//MGR->SendMsg(msg);
+		MGR->SendMsg(msg);
 	}
 };
 

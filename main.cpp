@@ -1,23 +1,9 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Manager.h"
-
-#include "BodySegment.h"
-#include "Body.h"
-#include "Eye.h"
-#include "Leg.h"
-#include "Arm.h"
-#include "Blob.h"
-
-#include "Spider.h"
-#include "Snake.h"
-#include "Lizard.h"
-#include "Creature.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Predator.h"
-
 #include "Camera.h"
 #include "SpawnManager.h"
+
+#include "Spider.h" //we need body for our player
 
 int main()
 {
@@ -34,11 +20,6 @@ int main()
 	Player* p = new Player(new Spider());
 	spawnManager->assignPlayer(p);
 	
-	//test
-	//Enemy* e = new Enemy(new Snake(), {150,150}, 200, 1);
-	//Enemy* e1 = new Enemy(new Lizard(), {0,0}, 200, 1);
-	Predator* e = new Predator({50,50});
-
 	const int targetFPS = 60;
 	const float frameTime = 1.0f / targetFPS;
 
@@ -60,10 +41,6 @@ int main()
 		float waitTime = frameTime - deltaTime;
 		if (waitTime > 0) 
 			sf::sleep(sf::seconds(waitTime));
-
-		//test
-		//c->setTarget((sf::Vector2f)sf::Mouse::getPosition(window));
-		//std::cout << p->getPosition().x << " " << p->getPosition().y << std::endl;
 
 		//draw
 		window.clear(sf::Color::Black);
