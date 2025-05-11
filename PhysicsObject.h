@@ -23,7 +23,7 @@ public:
 	PhysicsObject(sf::Vector2f pos_, float radius_);
 	PhysicsObject(sf::Vector2f pos_, float radius_, sf::Color color_);
 	PhysicsObject(const PhysicsObject&);
-	//virtual ~PhysicsObject();
+	virtual ~PhysicsObject() = default;
 
 	//int ID();
 

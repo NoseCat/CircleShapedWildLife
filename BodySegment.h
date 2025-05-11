@@ -3,6 +3,7 @@
 #include "VectorMath.h"
 #include "PhysicsObject.h"
 #include "BodyPart.h"
+#include "Manager.h"
 
 class BodySegment : public PhysicsObject
 {
@@ -15,6 +16,17 @@ private:
 public:
     BodySegment();
     BodySegment(float radius);
+    virtual ~BodySegment()
+    {
+        for (auto part : bodyParts)
+        {
+            Manager* MGR = Manager::GetInstance();
+            MSG* msg = new MSG();
+            msg->type = MsgType::Kill;
+            msg->kill.Dead = part;
+            MGR->SendMsg(msg);
+        }
+    }
 
 
     void Update(float dt);

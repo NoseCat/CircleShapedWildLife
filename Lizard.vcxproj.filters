@@ -108,6 +108,12 @@
     <ClCompile Include="SpawnManager.cpp">
       <Filter>Исходные файлы\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Poisoner.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Prey.cpp">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager.h">
@@ -180,6 +186,12 @@
       <Filter>Исходные файлы\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="SpawnManager.h">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Poisoner.h">
+      <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Prey.h">
       <Filter>Исходные файлы\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,15 +1,14 @@
 #pragma once
 #include "Enemy.h"
-#include "Lizard.h"
+#include "Snake.h"
 //#include "SpawnManager.h"
 
-class Predator : public Enemy
+class Prey : public Enemy
 {
 public:
 
-	Predator(sf::Vector2f pos) : Enemy(new Lizard(), pos, 250, 1, 50)
+	Prey(sf::Vector2f pos) : Enemy(new Snake(), pos, 250, 1.5, 40)
 	{
-		;
 	}
 
 	virtual void Update(float dt)
@@ -21,7 +20,7 @@ public:
 
 		if (length(playerPos - body->getPosition()) <= visibilityDistance)
 		{
-			target = playerPos;
+			target = this->body->getPosition() + (this->body->getPosition() - playerPos) * 2;
 		}
 
 		if (length(playerPos - body->getPosition()) <= touch)
@@ -62,11 +61,15 @@ public:
 	{
 		Manager* MGR = Manager::GetInstance();
 		MSG* msg = new MSG();
-		msg->type = MsgType::PlayerDamaged;
-		msg->playerDamaged.damager = this;
-		msg->playerDamaged.poison = false;
-		
+		msg->type = MsgType::PlayerAte;
+		msg->playerAte.eaten = this;
+		msg->playerAte.poison = false;
 		MGR->SendMsg(msg);
+
+		MSG* msg2 = new MSG();
+		msg2->type = MsgType::KillGO;
+		msg2->killGO.Dead = this;
+		MGR->SendMsg(msg2);
 	}
 };
 

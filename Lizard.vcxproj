@@ -153,7 +153,9 @@
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="MSG.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Poisoner.cpp" />
     <ClCompile Include="Predator.cpp" />
+    <ClCompile Include="Prey.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="SpawnManager.cpp" />
     <ClCompile Include="Spider.cpp" />
@@ -179,7 +181,9 @@
     <ClInclude Include="Manager.h" />
     <ClInclude Include="MSG.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Poisoner.h" />
     <ClInclude Include="Predator.h" />
+    <ClInclude Include="Prey.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="Spider.h" />

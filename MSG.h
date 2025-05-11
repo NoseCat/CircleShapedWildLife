@@ -2,7 +2,7 @@
 #include "PhysicsObject.h"
 #include "GameObject.h"
 
-enum class MsgType {Create, CreateGO, Kill, PlayerMoved, PlayerCollide, KillPlayer, PlayerDamaged};
+enum class MsgType { Create, CreateGO, Kill, KillGO, PlayerMoved, PlayerCollide, KillPlayer, PlayerDamaged, PlayerAte };
 
 struct MSG
 {
@@ -28,6 +28,12 @@ public:
 			PhysicsObject* Dead;
 		} kill;
 
+		struct
+		{
+			//PhysicsObject* Killer;
+			GameObject* Dead;
+		} killGO;
+
 		struct 
 		{
 			sf::Vector2f oldPos;
@@ -50,7 +56,14 @@ public:
 		struct
 		{
 			GameObject* damager;
+			bool poison;
 		} playerDamaged;
+
+		struct
+		{
+			GameObject* eaten;
+			bool poison;
+		} playerAte;
 		
 		// Конструктор по умолчанию
 	};

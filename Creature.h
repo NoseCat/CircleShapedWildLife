@@ -23,6 +23,15 @@ public:
 		target = { 0,0 };
 	}
 
+	virtual ~Creature()
+	{
+		Manager* MGR = Manager::GetInstance();
+		MSG* msg = new MSG();
+		msg->type = MsgType::Kill;
+		msg->kill.Dead = (PhysicsObject*)body; //????
+		MGR->SendMsg(msg);
+	}
+
 	virtual void Move(sf::Vector2f dir)
 	{
 		body->move(dir);

@@ -8,9 +8,17 @@ private:
 public:
 	Body();
 
-	//~Body()
-	//{
-	//}
+	virtual ~Body() 
+	{
+		for (auto segment : segments) 
+		{
+			Manager* MGR = Manager::GetInstance();
+			MSG* msg = new MSG();
+			msg->type = MsgType::Kill;
+			msg->kill.Dead = segment;
+			MGR->SendMsg(msg);
+		}
+	}
 
 	//Body(const Body& c)
 	//{

@@ -1,13 +1,13 @@
 #pragma once
 #include "Enemy.h"
-#include "Lizard.h"
+#include "Spider.h"
 //#include "SpawnManager.h"
 
-class Predator : public Enemy
+class Poisoner : public Enemy
 {
 public:
 
-	Predator(sf::Vector2f pos) : Enemy(new Lizard(), pos, 250, 1, 50)
+	Poisoner(sf::Vector2f pos) : Enemy(new Spider(), pos, 150, 2, 70)
 	{
 		;
 	}
@@ -19,15 +19,9 @@ public:
 			target = sf::Vector2f({ (float)(rand() % MAP_WIDTH), (float)(rand() % MAP_HEIGTH) });
 		}
 
-		if (length(playerPos - body->getPosition()) <= visibilityDistance)
-		{
-			target = playerPos;
-		}
-
 		if (length(playerPos - body->getPosition()) <= touch)
 		{
 			Collide();
-
 			Manager* MGR = Manager::GetInstance();
 			MSG* msg = new MSG();
 			msg->type = MsgType::PlayerCollide;
@@ -64,8 +58,8 @@ public:
 		MSG* msg = new MSG();
 		msg->type = MsgType::PlayerDamaged;
 		msg->playerDamaged.damager = this;
-		msg->playerDamaged.poison = false;
-		
+		msg->playerDamaged.poison = true;
+
 		MGR->SendMsg(msg);
 	}
 };

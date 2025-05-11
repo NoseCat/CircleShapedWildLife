@@ -36,11 +36,33 @@ void Manager::Destroy()
 
 void Manager::Update(float dt)
 {
-	for (auto obj : Gobjs)
-		obj->Update(dt);
-
-	for (auto obj : objs)
-		obj->Update(dt);
+	auto killMessagge = msgs.begin();
+	while (killMessagge != msgs.end())
+	{
+		MSG* m = *killMessagge;
+		if (m->type == MsgType::Kill)
+		{
+			auto res = find(objs.begin(), objs.end(), m->kill.Dead);
+			delete* res;
+			objs.erase(res);
+			
+			delete m;
+			killMessagge = msgs.erase(killMessagge);
+		}
+		else if (m->type == MsgType::KillGO)
+		{
+			auto res = find(Gobjs.begin(), Gobjs.end(), m->killGO.Dead);
+			delete* res;
+			Gobjs.erase(res);
+			
+			delete m;
+			killMessagge = msgs.erase(killMessagge);
+		}
+		else
+		{
+			++killMessagge;
+		}
+	}
 
 	MSG* m;
 	while (!msgs.empty())
@@ -64,6 +86,12 @@ void Manager::Update(float dt)
 			delete* res;
 			objs.erase(res);
 		} break;
+		case MsgType::KillGO:
+		{
+			auto res = find(Gobjs.begin(), Gobjs.end(), m->killGO.Dead);
+			delete* res;
+			Gobjs.erase(res);
+		} break;
 
 		case MsgType::KillPlayer:
 		{
@@ -78,14 +106,19 @@ void Manager::Update(float dt)
 			obj->SendMsg(m);
 		}
 
-		for (auto obj : Gobjs)
+		for (auto Gobj : Gobjs)
 		{
-			obj->SendMsg(m);
+			Gobj->SendMsg(m);
 		}
 
 		delete m;
 	}
 
+	for (auto obj : Gobjs)
+		obj->Update(dt);
+
+	for (auto obj : objs)
+		obj->Update(dt);
 }
 
 void Manager::SendMsg(MSG* m)

@@ -16,6 +16,7 @@ public:
 	{
 		transOffset = trueOffset;
 	}
+	virtual ~BodyPart() = default;
 
 	sf::Vector2f getOffset();
 	void setOffset(sf::Vector2f vec);

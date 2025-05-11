@@ -2,6 +2,9 @@
 #include "MSG.h"
 #include <list>
 
+const int MAP_WIDTH = 1000;
+const int MAP_HEIGTH = 1000;
+
 class Manager
 {
 private:

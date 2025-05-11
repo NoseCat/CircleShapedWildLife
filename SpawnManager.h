@@ -3,6 +3,8 @@
 #include "MSG.h"
 #include "Player.h"
 #include "Predator.h"
+#include "Poisoner.h"
+#include "Prey.h"
 
 class SpawnManager : public GameObject
 {
@@ -10,10 +12,13 @@ class SpawnManager : public GameObject
 
 	int PredatorCounter = 0;
 	int PredatorLimit = 5;
+	bool SpawnPredators = false;
 	int PreyCounter = 0;
 	int PreyLimit = 5;
+	bool SpawnPreys = true;
 	int PoisonerCounter = 0;
 	int PoisonerLimit = 5;
+	bool SpawnPoisoners = false;
 
 	int spawnTimer = 5;
 	float spawnTimerAccumulator = 0;
@@ -29,7 +34,7 @@ public:
 		PreyCounter = 0;
 		PreyLimit = 5;
 		PoisonerCounter = 0;
-		PoisonerLimit = 5;
+		PoisonerLimit = 10;
 
 		spawnTimer = 5;
 		spawnTimerAccumulator = 0;
@@ -44,13 +49,27 @@ public:
 			spawnTimerAccumulator = 0;
 			spawn = true;
 		}
-		if (PredatorCounter < PredatorLimit && spawn)
+	
+		if (PredatorCounter < PredatorLimit && spawn && SpawnPredators)
 		{
-			spawn = false;
 			PredatorCounter++;
 			sf::Vector2f randVec = sf::Vector2f((rand() % MAP_WIDTH), (rand() % MAP_HEIGTH));
 			std::cout << "Predator spawned at x: " << randVec.x << "y: " << randVec.y << "\n";
 			new Predator(randVec);
+		}
+		if (PoisonerCounter < PoisonerLimit && spawn && SpawnPoisoners)
+		{
+			PoisonerCounter++;
+			sf::Vector2f randVec = sf::Vector2f((rand() % MAP_WIDTH), (rand() % MAP_HEIGTH));
+			std::cout << "Poisoner spawned at x: " << randVec.x << "y: " << randVec.y << "\n";
+			new Poisoner(randVec);
+		}
+		if (PreyCounter < PreyLimit && spawn && SpawnPreys)
+		{
+			PreyCounter++;
+			sf::Vector2f randVec = sf::Vector2f((rand() % MAP_WIDTH), (rand() % MAP_HEIGTH));
+			std::cout << "Poisoner spawned at x: " << randVec.x << "y: " << randVec.y << "\n";
+			new Prey(randVec);
 		}
 	}
 
@@ -71,6 +90,9 @@ public:
 			break;
 		case MsgType::PlayerCollide:
 			break;
+		case MsgType::PlayerAte:
+			PreyCounter++;
+			break;
 		case MsgType::KillPlayer:
 
 			MSG* msg = new MSG();
@@ -84,6 +106,7 @@ public:
 			//default:
 				//break;
 		}
+
 	}
 };
 

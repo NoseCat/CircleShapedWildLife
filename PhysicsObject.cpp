@@ -55,6 +55,16 @@ PhysicsObject::PhysicsObject(sf::Vector2f pos_, float radius_, sf::Color color_)
 	MGR->SendMsg(msg);
 }
 
+//PhysicsObject::~PhysicsObject()
+//{
+//	printf("PhysicsObject destructor called\n");
+//	Manager* MGR = Manager::GetInstance();
+//	MSG* msg = new MSG();
+//	msg->type = MsgType::Kill;
+//	msg->kill.Dead = this;
+//	MGR->SendMsg(msg);
+//}
+
 PhysicsObject::PhysicsObject(const PhysicsObject&)
 {
 

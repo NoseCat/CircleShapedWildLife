@@ -3,8 +3,6 @@
 #include "Creature.h"
 #include "Manager.h"
 #include "MSG.h"
-//#include "Predator.h"
-//#include "Camera.h"
 
 class Player : public Creature
 {
@@ -15,10 +13,20 @@ private:
 	sf::Text healthText;
 	sf::Text scoreText;
 
-	bool invincible = false;
-	float invincibilityTimer = 0.0f;
-	float invincibilityTime = 2.0f;
+	bool invincible;
+	float invincibilityTimer;
+	float invincibilityTime;
 	sf::CircleShape* invincibilityCircle;
+
+	bool poisoned;
+	float poisonTick;
+	float poisonTickTimer;
+	float poisonEffectDuration;
+	float poisonTimer;
+	sf::CircleShape* poisonCircle;
+
+	int damage;
+	int posionDamage;
 
 public:
 
@@ -32,6 +40,9 @@ public:
 		health = 100;
 		score = 0;
 
+		damage = 20;
+		posionDamage = 1;
+
 		invincible = false;
 		invincibilityTimer = 0.0f;
 		invincibilityTime = 2.0f;
@@ -39,6 +50,16 @@ public:
 		invincibilityCircle = new sf::CircleShape(150.0f);
 		invincibilityCircle->setFillColor(sf::Color(0, 0, 255, 64));
 		invincibilityCircle->setOrigin(invincibilityCircle->getRadius(), invincibilityCircle->getRadius());
+
+		poisoned = false;
+		poisonTick = 0.25f;
+		poisonTickTimer = 0.0f;
+		poisonEffectDuration = 5.0f;
+		poisonTimer = poisonEffectDuration;
+
+		poisonCircle = new sf::CircleShape(50.0f);
+		poisonCircle->setFillColor(sf::Color(0, 255, 0, 32));
+		poisonCircle->setOrigin(poisonCircle->getRadius(), poisonCircle->getRadius());
 
 		if (!font.loadFromFile("minecraft.ttf")) 
 		{
@@ -62,6 +83,16 @@ public:
 	{
 		invincibilityTimer += dt;
 		invincible = !(invincibilityTimer > invincibilityTime);
+		
+		poisonTimer += dt;
+		poisonTickTimer += dt;
+		poisoned = (poisonTimer < poisonEffectDuration);
+		if(poisoned)
+			if (poisonTickTimer > poisonTick)
+			{
+				poisonTickTimer = 0;
+				health -= posionDamage;
+			}
 
 		sf::Vector2f input(0, 0);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
@@ -94,6 +125,9 @@ public:
 		invincibilityCircle->setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
 		if (invincible)
 			window.draw(*(invincibilityCircle));
+		poisonCircle->setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+		if (poisoned)
+			window.draw(*(poisonCircle));
 
 		healthText.setString("Health: " + std::to_string(health));
 		window.draw(healthText);
@@ -107,17 +141,31 @@ public:
 		invincibilityTimer = 0;
 	}
 
+	void Poison()
+	{
+		poisoned = true;
+		poisonTimer = 0;
+		poisonTickTimer = 0;
+	}
+
 	virtual void SendMsg(MSG* m)
 	{
-		//on hit : invincibilityTimer = 0
 		switch (m->type)
 		{
 		case MsgType::PlayerDamaged:
 			if (!invincible)
 			{
+				if (m->playerDamaged.poison)
+				{
+					printf("kek\n");
+					Poison();
+				}
+				else
+					health -= damage;
 				MakeTemporaryInvincible();
-				health -= 20;
 			}
+		case MsgType::PlayerAte:
+			score += 15;
 		}
 	}
 };

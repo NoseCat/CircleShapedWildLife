@@ -19,7 +19,7 @@ public:
 	GameObject(sf::Vector2f pos_, float radius_);
 	GameObject(sf::Vector2f pos_, float radius_, sf::Color color_);
 	GameObject(const GameObject&);
-	//virtual ~PhysicsObject();
+	virtual ~GameObject() = default;
 
 	//int ID();
 

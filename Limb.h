@@ -21,6 +21,8 @@ public:
 
 	Limb(sf::Vector2f offset_, float hipLenght, float kneeSize, float shinLenght, float feetSize, sf::Vector2f target);
 
+	virtual ~Limb() = default;
+
 	void setHipWidth(float x)
 	{
 		hipWidth = x;
