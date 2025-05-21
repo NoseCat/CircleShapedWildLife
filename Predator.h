@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "Lizard.h"
+#include "VectorMath.h"
 //#include "SpawnManager.h"
 
 class Predator : public Enemy
@@ -14,7 +15,7 @@ public:
 
 	virtual void Update(float dt)
 	{
-		if (length(target - body->getPosition()) <= visibilityDistance)
+		if (length(target - body->getPosition()) <= touch)
 		{
 			target = sf::Vector2f({ (float)(rand() % MAP_WIDTH), (float)(rand() % MAP_HEIGTH) });
 		}
@@ -42,6 +43,7 @@ public:
 
 	void Draw(sf::RenderWindow& window)
 	{
+
 	}
 
 	virtual void SendMsg(MSG* m)
@@ -52,6 +54,21 @@ public:
 			playerPos = m->playerMoved.newPos;
 			break;
 		case MsgType::PlayerCollide:
+			break;
+		case MsgType::PreyMoved:
+			if (length(m->preyMoved.newPos - body->getPosition()) < touch)
+			{
+				Manager* MGR = Manager::GetInstance();
+				MSG* msg = new MSG();
+				msg->type = MsgType::PreyPredatorCollide;
+				msg->preyPredatorCollide.prey = m->preyMoved.prey;
+				msg->preyPredatorCollide.Predator = this;
+
+				MGR->SendMsg(msg);
+			}
+			if (length(m->preyMoved.newPos - body->getPosition()) < visibilityDistance)
+				target = m->preyMoved.newPos;
+
 			break;
 		default:
 			break;

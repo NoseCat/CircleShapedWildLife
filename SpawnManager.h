@@ -5,23 +5,28 @@
 #include "Predator.h"
 #include "Poisoner.h"
 #include "Prey.h"
+#include "Food.h"
+#include "Poison.h"
 
 class SpawnManager : public GameObject
 {
 	Player* p;
 
-	int PredatorCounter = 0;
-	int PredatorLimit = 5;
-	bool SpawnPredators = false;
-	int PreyCounter = 0;
-	int PreyLimit = 5;
+	int PredatorCounter;
+	int PredatorLimit;
+	bool SpawnPredators = true;
+	int PreyCounter;
+	int PreyLimit;
 	bool SpawnPreys = true;
-	int PoisonerCounter = 0;
-	int PoisonerLimit = 5;
-	bool SpawnPoisoners = false;
+	int PoisonerCounter;
+	int PoisonerLimit;
+	bool SpawnPoisoners = true;
 
-	int spawnTimer = 5;
-	float spawnTimerAccumulator = 0;
+	bool SpawnFood = true;
+	bool SpawnPoison = true;
+
+	int spawnTimer;
+	float spawnTimerAccumulator;
 
 public:
 
@@ -32,11 +37,11 @@ public:
 		PredatorCounter = 0;
 		PredatorLimit = 5;
 		PreyCounter = 0;
-		PreyLimit = 5;
+		PreyLimit = 10;
 		PoisonerCounter = 0;
-		PoisonerLimit = 10;
+		PoisonerLimit = 3;
 
-		spawnTimer = 5;
+		spawnTimer = 2.5;
 		spawnTimerAccumulator = 0;
 	}
 
@@ -68,8 +73,20 @@ public:
 		{
 			PreyCounter++;
 			sf::Vector2f randVec = sf::Vector2f((rand() % MAP_WIDTH), (rand() % MAP_HEIGTH));
-			std::cout << "Poisoner spawned at x: " << randVec.x << "y: " << randVec.y << "\n";
+			std::cout << "Prey spawned at x: " << randVec.x << "y: " << randVec.y << "\n";
 			new Prey(randVec);
+		}
+		if (spawn && SpawnFood)
+		{
+			sf::Vector2f randVec = sf::Vector2f((rand() % MAP_WIDTH), (rand() % MAP_HEIGTH));
+			std::cout << "Food spawned at x: " << randVec.x << "y: " << randVec.y << "\n";
+			new Food(randVec);
+		}
+		if (spawn && SpawnPoison)
+		{
+			sf::Vector2f randVec = sf::Vector2f((rand() % MAP_WIDTH), (rand() % MAP_HEIGTH));
+			std::cout << "Poison spawned at x: " << randVec.x << "y: " << randVec.y << "\n";
+			new Poison(randVec);
 		}
 	}
 
@@ -84,29 +101,23 @@ public:
 
 	void SendMsg(MSG* m)
 	{
+		Manager* MGR = Manager::GetInstance();
+		MSG* msg = new MSG();
+
 		switch (m->type)
 		{
 		case MsgType::PlayerMoved:
 			break;
 		case MsgType::PlayerCollide:
 			break;
+		case MsgType::PreyPredatorCollide:
 		case MsgType::PlayerAte:
-			PreyCounter++;
+			PreyCounter--;
 			break;
-		case MsgType::KillPlayer:
-
-			MSG* msg = new MSG();
-			msg->type = MsgType::Kill;
-			//msg->kill.Dead = (PhysicsObject*)p; //??
-
-			Manager* MGR = Manager::GetInstance();
-			MGR->SendMsg(msg);
-
+		default:
 			break;
-			//default:
-				//break;
 		}
-
+		delete msg;
 	}
 };
 

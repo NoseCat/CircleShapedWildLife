@@ -9,11 +9,11 @@ int main()
 {
 	//preprogramm
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Circles or smth");
-
-	Manager* MGR = Manager::GetInstance();
 	sf::Clock clock;
 	clock.restart();
 
+	Manager* MGR = Manager::GetInstance();
+	
 	Camera* cam = Camera::getInstance();
 
 	SpawnManager* spawnManager = new SpawnManager();

@@ -1,19 +1,30 @@
 #pragma once
 #include "Enemy.h"
 #include "Spider.h"
+#include "Poison.h"
 //#include "SpawnManager.h"
 
 class Poisoner : public Enemy
 {
-public:
+private:
+	float poisonTimer;
+	float poisonTime;
 
+public:
 	Poisoner(sf::Vector2f pos) : Enemy(new Spider(), pos, 150, 2, 70)
 	{
-		;
+		poisonTimer = 0;
+		poisonTime = 5;
 	}
 
 	virtual void Update(float dt)
 	{
+		poisonTimer += dt;
+		if (poisonTimer > poisonTime)
+		{
+			poisonTimer = 0;
+			new Poison(body->getPosition());
+		}
 		if (length(target - body->getPosition()) <= visibilityDistance)
 		{
 			target = sf::Vector2f({ (float)(rand() % MAP_WIDTH), (float)(rand() % MAP_HEIGTH) });

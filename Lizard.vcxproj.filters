@@ -114,6 +114,9 @@
     <ClCompile Include="Prey.cpp">
       <Filter>Исходные файлы\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Poison.cpp">
+      <Filter>Исходные файлы\PhysicsObject\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Prey.h">
       <Filter>Исходные файлы\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Poison.h">
+      <Filter>Исходные файлы\PhysicsObject\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

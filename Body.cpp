@@ -25,24 +25,6 @@ void Body::move(sf::Vector2f dir)
 
 void Body::Update(float dt)
 {
-	////test
-	//float fspeed = 0.2f;
-	//sf::Vector2f input(0, 0);
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-	//	input.y -= 1;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-	//	input.y += 1;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-	//	input.x -= 1;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-	//	input.x += 1;
-	//}
-	//input = normalize(input);
-	//segments[0]->move(input * fspeed);
-
 	for (int i = 0; i < segments.size() - 1; i++)
 	{
 		segments[i]->fixPartOffset(*(segments[i + 1]));

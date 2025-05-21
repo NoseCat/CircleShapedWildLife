@@ -1,4 +1,6 @@
 #include "Manager.h"
+#include <iostream>
+#include <thread>
 
 Manager* Manager::instance = nullptr;
 
@@ -8,14 +10,52 @@ Manager::Manager(const Manager&)
 {
 }
 
+void Manager::ProcessKills()
+{
+	auto killMessagge = msgs.begin();
+	while (killMessagge != msgs.end())
+	{
+		MSG* m = *killMessagge;
+		if (m->type == MsgType::Kill)
+		{
+			auto res = find(objs.begin(), objs.end(), m->kill.Dead);
+			delete* res;
+			objs.erase(res);
+
+			delete m;
+			killMessagge = msgs.erase(killMessagge);
+		}
+		else if (m->type == MsgType::KillGO)
+		{
+			auto res = find(Gobjs.begin(), Gobjs.end(), m->killGO.Dead);
+			delete* res;
+			Gobjs.erase(res);
+
+			delete m;
+			killMessagge = msgs.erase(killMessagge);
+		}
+		else
+		{
+			++killMessagge;
+		}
+	}
+}
+
 Manager::~Manager()
 {
+	ProcessKills();
 	for (auto x : Gobjs)
+	{
 		delete x;
+		ProcessKills();
+	}
 	objs.clear();
 
 	for (auto x : objs)
+	{
+		ProcessKills();
 		delete x;
+	}
 	objs.clear();
 
 	for (auto x : msgs)
@@ -36,33 +76,10 @@ void Manager::Destroy()
 
 void Manager::Update(float dt)
 {
-	auto killMessagge = msgs.begin();
-	while (killMessagge != msgs.end())
-	{
-		MSG* m = *killMessagge;
-		if (m->type == MsgType::Kill)
-		{
-			auto res = find(objs.begin(), objs.end(), m->kill.Dead);
-			delete* res;
-			objs.erase(res);
-			
-			delete m;
-			killMessagge = msgs.erase(killMessagge);
-		}
-		else if (m->type == MsgType::KillGO)
-		{
-			auto res = find(Gobjs.begin(), Gobjs.end(), m->killGO.Dead);
-			delete* res;
-			Gobjs.erase(res);
-			
-			delete m;
-			killMessagge = msgs.erase(killMessagge);
-		}
-		else
-		{
-			++killMessagge;
-		}
-	}
+	ProcessKills();
+
+	//for (auto msg : msgs)
+		//msg->print();
 
 	MSG* m;
 	while (!msgs.empty())
@@ -92,11 +109,6 @@ void Manager::Update(float dt)
 			delete* res;
 			Gobjs.erase(res);
 		} break;
-
-		case MsgType::KillPlayer:
-		{
-
-		}break;
 		default:
 			break;
 		}
@@ -114,8 +126,8 @@ void Manager::Update(float dt)
 		delete m;
 	}
 
-	for (auto obj : Gobjs)
-		obj->Update(dt);
+	for (auto Gobj : Gobjs)
+		Gobj->Update(dt);
 
 	for (auto obj : objs)
 		obj->Update(dt);
@@ -136,6 +148,45 @@ void Manager::DrawObjects(sf::RenderWindow& win, Camera& cam)
 	{
 		Gobj->Draw(win);
 	}
+
+	for (auto msg : msgs)
+	{
+		if (msg->type == MsgType::GameEnd)
+			End(win, msg->gameEnd.score);
+	}
+}
+
+void End(sf::RenderWindow& window, int score)
+{
+	printf("\nEnd\n");
+	//window.clear(sf::Color::Black);
+
+	sf::Text YouDied;
+	sf::Text YourScore;
+	sf::Font font;
+	font.loadFromFile("minecraft.ttf");
+	YouDied.setFont(font);
+	YouDied.setString("You Died");
+	YouDied.setCharacterSize(32);
+	YouDied.setFillColor(sf::Color::Red);
+
+	YourScore.setFont(font);
+	YourScore.setString("Your score: " + std::to_string(score));
+	YourScore.setCharacterSize(32);
+	YourScore.setFillColor(sf::Color::Yellow);
+
+	sf::Vector2u windowSize = window.getSize();
+
+	YouDied.setPosition((windowSize.x - YouDied.getLocalBounds().width) / 2.0f, windowSize.y * 0.4f);
+	YourScore.setPosition((windowSize.x - YourScore.getLocalBounds().width) / 2.0f, YouDied.getPosition().y + YouDied.getLocalBounds().height + 20.0f);
+
+	window.draw(YouDied);
+	window.draw(YourScore);
+
+	window.display();
+
+	std::this_thread::sleep_for(std::chrono::seconds(4));
+	exit(0);
 }
 
 

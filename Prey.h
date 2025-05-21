@@ -1,7 +1,6 @@
 #pragma once
 #include "Enemy.h"
 #include "Snake.h"
-//#include "SpawnManager.h"
 
 class Prey : public Enemy
 {
@@ -13,7 +12,7 @@ public:
 
 	virtual void Update(float dt)
 	{
-		if (length(target - body->getPosition()) <= visibilityDistance)
+		if (length(target - body->getPosition()) <= touch)
 		{
 			target = sf::Vector2f({ (float)(rand() % MAP_WIDTH), (float)(rand() % MAP_HEIGTH) });
 		}
@@ -37,6 +36,13 @@ public:
 
 		sf::Vector2f dir = target - body->getPosition();
 		Move(normalize(dir) * speed);
+
+		Manager* MGR = Manager::GetInstance();
+		MSG* msg = new MSG();
+		msg->type = MsgType::PreyMoved;
+		msg->preyMoved.newPos = body->getPosition();
+		msg->preyMoved.prey = (GameObject*)this; //??
+		MGR->SendMsg(msg);
 	}
 
 	void Draw(sf::RenderWindow& window)
@@ -51,6 +57,35 @@ public:
 			playerPos = m->playerMoved.newPos;
 			break;
 		case MsgType::PlayerCollide:
+			break;
+		case MsgType::PreyPredatorCollide:
+			if(m->preyPredatorCollide.prey == (GameObject*)this)
+			{
+				Manager* MGR = Manager::GetInstance();
+				MSG* msg = new MSG();
+				msg->type = MsgType::KillGO;
+				msg->killGO.Dead = (GameObject*)this;
+				MGR->SendMsg(msg);
+			}
+			break;
+
+		case MsgType::FoodIsOn:
+			if (m->foodIsOn.poison)
+			{
+				return;
+			}
+			if (length(m->foodIsOn.pos - body->getPosition()) < m->foodIsOn.size + touch)
+			{
+				Manager* MGR = Manager::GetInstance();
+				MSG* msg = new MSG();
+				msg->type = MsgType::Kill;
+				msg->kill.Dead = m->foodIsOn.food;
+				MGR->SendMsg(msg);
+			}
+			if (length(m->foodIsOn.pos - body->getPosition()) < m->foodIsOn.size + visibilityDistance)
+			{
+				target = m->foodIsOn.pos;
+			}
 			break;
 		default:
 			break;

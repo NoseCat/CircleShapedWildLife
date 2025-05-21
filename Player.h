@@ -39,6 +39,7 @@ public:
 	{
 		health = 100;
 		score = 0;
+		speed = 2;
 
 		damage = 20;
 		posionDamage = 1;
@@ -118,6 +119,14 @@ public:
 		msg->type = MsgType::PlayerMoved;
 		msg->playerMoved.newPos = body->getPosition();
 		MGR->SendMsg(msg);
+
+		if (health <= 0)
+		{
+			MSG* msg = new MSG();
+			msg->type = MsgType::GameEnd;
+			msg->gameEnd.score = score;
+			MGR->SendMsg(msg);
+		}
 	}
 
 	void Draw(sf::RenderWindow& window)
@@ -150,6 +159,7 @@ public:
 
 	virtual void SendMsg(MSG* m)
 	{
+		Manager* MGR = Manager::GetInstance();
 		switch (m->type)
 		{
 		case MsgType::PlayerDamaged:
@@ -157,15 +167,31 @@ public:
 			{
 				if (m->playerDamaged.poison)
 				{
-					printf("kek\n");
 					Poison();
 				}
 				else
 					health -= damage;
 				MakeTemporaryInvincible();
 			}
+			break;
 		case MsgType::PlayerAte:
 			score += 15;
+			break;
+		case MsgType::FoodIsOn:
+			if (!(length(m->foodIsOn.pos - body->getPosition()) < m->foodIsOn.size))
+			{
+				return;
+			}
+			if (m->foodIsOn.poison)
+			{
+				Poison();
+			}
+			score += m->foodIsOn.score;
+			MSG* msg = new MSG();
+			msg->type = MsgType::Kill;
+			msg->kill.Dead = m->foodIsOn.food;
+			MGR->SendMsg(msg);
+			break;
 		}
 	}
 };
